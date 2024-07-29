@@ -1,3 +1,4 @@
+import aio_pika
 import asyncio
 
 async def main():
@@ -22,4 +23,5 @@ async def main():
     await query_queue.consume(process_message)
     await asyncio.Future()  # Run forever
 
-
+if __name__ == "__main__":
+    asyncio.run(main())

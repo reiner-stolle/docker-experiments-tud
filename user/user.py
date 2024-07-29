@@ -7,9 +7,13 @@ async def main():
     channel = await connection.channel()
     queue = await channel.declare_queue("query_queue", durable=True)
 
-    for file_name in os.listdir("sql_queries"):
+    # Path to the SQL files in the Docker container
+    sql_folder_path = "./job_queries"
+
+    for file_name in os.listdir(sql_folder_path):
         if file_name.endswith(".sql"):
-            with open(os.path.join("sql_queries", file_name), "r") as file:
+            file_path = os.path.join(sql_folder_path, file_name)
+            with open(file_path, "r") as file:
                 query = file.read()
                 await channel.default_exchange.publish(
                     aio_pika.Message(body=query.encode()),

@@ -3,14 +3,30 @@ version: '3.3'
 services:
   rabbitmq:
     image: "rabbitmq:3-management"
+    networks:
+      - app-network
     ports:
       - "5672:5672"
       - "15672:15672"
+
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    environment:
+      POSTGRES_DB: imdb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    networks:
+      - app-network
+    ports:
+      - "5432:5432"
 
   user:
     build:
       context: .
       dockerfile: Dockerfile.user
+    networks:
+      - app-network
     depends_on:
       - rabbitmq
 
@@ -18,6 +34,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dispatcher
+    networks:
+      - app-network
     depends_on:
       - rabbitmq
 
@@ -25,6 +43,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.processor
+    networks:
+      - app-network
+    environment:
+      - PROCESSOR_NAME=processor1
     depends_on:
       - rabbitmq
 
@@ -32,6 +54,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.processor
+    networks:
+      - app-network
+    environment:
+      - PROCESSOR_NAME=processor2
     depends_on:
       - rabbitmq
 
@@ -39,5 +65,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.collector
+    networks:
+      - app-network
     depends_on:
       - rabbitmq
+      - postgres
+
+networks:
+  app-network:
+    driver: bridge
