@@ -1,0 +1,43 @@
+version: '3.3'
+
+services:
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  user:
+    build:
+      context: .
+      dockerfile: Dockerfile.user
+    depends_on:
+      - rabbitmq
+
+  dispatcher:
+    build:
+      context: .
+      dockerfile: Dockerfile.dispatcher
+    depends_on:
+      - rabbitmq
+
+  processor1:
+    build:
+      context: .
+      dockerfile: Dockerfile.processor
+    depends_on:
+      - rabbitmq
+
+  processor2:
+    build:
+      context: .
+      dockerfile: Dockerfile.processor
+    depends_on:
+      - rabbitmq
+
+  collector:
+    build:
+      context: .
+      dockerfile: Dockerfile.collector
+    depends_on:
+      - rabbitmq
