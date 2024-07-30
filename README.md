@@ -1,4 +1,4 @@
-Setting up the imdb database
+# Setting up the imdb database
 
 ### Retrieve the latest postgres version**
 `docker pull postgres:latest`
