@@ -1,9 +1,0 @@
-# Execute Docker image
-docker exec -it postgresql bash
-
-# Start imdb
-psql -U postgres imdb
-
-# check tables after restore
-\dt
-
