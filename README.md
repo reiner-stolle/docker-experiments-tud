@@ -5,3 +5,18 @@ Setting up the imdb database
 
 ### **Run this command, replace abs/host/workload with location of job_workload**
 `docker run -itd -e POSTGRES_PASSWORD=postgres -e PGDATA=/var/lib/postgresql/pgdata --shm-size 10g -p 5432:5432 -v abs/host/workload:/var/lib/postgresql/workload --name postgresql postgres:tag`
+
+### **Enter the Docker via bash**
+`docker exec -it postgresql bash`
+
+### **Restore the db from the sql dump, replace the last argument with the location of imdb_pg11.sql (commonly in var/lib/postgres/)**
+`pg_restore -U postgres -d imdb --no-owner --no-privileges job_workload/job_workload/imdb_pg11.sql`
+
+### Enter and check the import
+`psql -U postgres imdb`
+
+### Enter and check the import
+`psql -U postgres imdb`
+
+### check entries
+`select count(*) from title;`
