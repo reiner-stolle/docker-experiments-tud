@@ -1,3 +1,8 @@
+# Prerequisits
+### installed
+`docker-compose`
+`docker`
+
 # Setting up the imdb database
 
 ### Retrieve the latest postgres version**
