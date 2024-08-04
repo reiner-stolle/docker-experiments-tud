@@ -33,6 +33,11 @@
 #### for detached session (runs in background)
 `docker run -d --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.13-management`
 
+### create Network for Docker-compose
+`docker network create my_network`
 
-### copy job_queries into user container
-docker cp ./job_queries user:/
+### connect postgresql to my_network
+`docker network connect my_network postgresql`
+
+### (optional) copy job_queries into user container
+`docker cp ./job_queries user:/`
