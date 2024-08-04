@@ -1,0 +1,4 @@
+pika
+aiopg
+uuid
+aio-pika
