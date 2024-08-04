@@ -43,6 +43,7 @@ services:
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_PORT=5672
     depends_on:
+      - user
       - rabbitmq
     networks:
       - my_network
@@ -57,6 +58,10 @@ services:
       - RABBITMQ_PORT=5672
     depends_on:
       - rabbitmq
+      - processor1
+      - processor2
+      - processor3
+      - dispatcher
     networks:
       - my_network
 
