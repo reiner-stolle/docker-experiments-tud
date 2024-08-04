@@ -47,6 +47,19 @@ services:
     networks:
       - my_network
 
+  collector:
+    build:
+      context: ./collector           
+      dockerfile: Dockerfile
+    container_name: collector
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+    depends_on:
+      - rabbitmq
+    networks:
+      - my_network
+
   processor1:
     build:
       context: ./processor1           
@@ -60,3 +73,31 @@ services:
     networks:
       - my_network
 
+  processor2:
+    build:
+      context: ./processor2           
+      dockerfile: Dockerfile
+    container_name: processor2
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+    depends_on:
+      - rabbitmq
+    networks:
+      - my_network
+
+  processor3:
+    build:
+      context: ./processor3           
+      dockerfile: Dockerfile
+    container_name: processor3
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+    depends_on:
+      - rabbitmq
+    networks:
+      - my_network
+
+  # postgresql: 
+  #   external: true

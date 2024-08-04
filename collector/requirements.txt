@@ -1,0 +1,5 @@
+aiopg
+pika
+tornado
+aio-pika
+aiologger

@@ -3,7 +3,7 @@ import json
 import logging
 import time
 
-RABBITMQ_HOST = 'localhost'
+RABBITMQ_HOST = 'rabbitmq'
 RABBITMQ_PORT = 5672
 NUM_PROCESSORS = 3
 PREFETCH_COUNT = 10
